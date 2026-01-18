@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация - English Learning</title>
+  <link rel="stylesheet" href="../../assets/css/colors.css">
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/forms.css">
+  <link rel="stylesheet" href="../../assets/css/layout.css">
+  <link rel="stylesheet" href="../../assets/css/modules.css">
+  <link rel="stylesheet" href="../../assets/css/schedule.css">
+  <link rel="stylesheet" href="../../assets/css/results.css">
+  <!-- стили конкретно для этой страницы -->
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--blue-dark) 0%, #1a1c2e 100%);
+      margin: 0;
+    }
+
+    .register-container {
+      background: white;
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .register-container h1 {
+      text-align: center;
+      color: var(--blue-dark);
+      margin-bottom: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--blue-dark);
+      font-weight: 600;
+    }
+
+    .form-group label.required::after {
+      content: ' *';
+      color: var(--red-dark);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid var(--gray-medium);
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--red-dark);
+      box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.1);
+    }
+
+    .user-type-selector {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .user-type-option {
+      flex: 1;
+      text-align: center;
+      padding: 20px;
+      border: 2px solid var(--gray-medium);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .user-type-option:hover {
+      border-color: var(--red-dark);
+      background: rgba(217, 4, 41, 0.05);
+    }
+
+    .user-type-option.selected {
+      border-color: var(--red-dark);
+      background: rgba(217, 4, 41, 0.1);
+    }
+
+    .user-type-option i {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 10px;
+      color: var(--red-dark);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--red-dark);
+      color: var(--gray-light);
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background: var(--red-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(217, 4, 41, 0.3);
+    }
+
+    .submit-btn:disabled {
+      background: var(--gray-medium);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .auth-links {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 15px;
+    }
+
+    .auth-links a {
+      color: var(--red-dark);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .auth-links a:hover {
+      text-decoration: underline;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+      color: var(--red-dark);
+    }
+
+    .back-home {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: var(--gray-medium);
+      text-decoration: none;
+    }
+
+    .back-home:hover {
+      color: var(--blue-dark);
+    }
+
+    .password-toggle {
+      position: relative;
+    }
+
+    .password-toggle button {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--gray-medium);
+      padding: 5px;
+    }
+
+    .city-search-container {
+      position: relative;
+    }
+
+    .city-search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 2px solid var(--gray-medium);
+      border-radius: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .city-search-result {
+      padding: 12px 15px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--gray-light);
+      transition: background-color 0.2s;
+    }
+
+    .city-search-result:hover {
+      background-color: var(--gray-light);
+    }
+
+    .city-search-result:last-child {
+      border-bottom: none;
+    }
+
+    .city-search-result .city-name {
+      font-weight: 600;
+      color: var(--blue-dark);
+    }
+
+    .city-search-result .city-region {
+      font-size: 13px;
+      color: var(--gray-medium);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="register-container">
+    <a href="main_index.php" class="back-home">← Вернуться на главную</a>
+    <h1>Регистрация</h1>
+
+    <!-- вывод ошибки, при отсутсвии не выводятся -->
+    <div class="alert alert-error" id="errorMessage" style="display: none;"></div>
+    <div class="alert alert-success" id="successMessage" style="display: none;"></div>
+    <div class="alert alert-warning" id="warningMessage" style="display: none;"></div>
+
+    <form id="registerForm">
+      <div class="user-type-selector">
+        <div class="user-type-option" data-type="student">
+          <strong>Студент</strong>
+          <p style="font-size: 14px; margin-top: 5px; color: var(--gray-medium);">
+            Хочу изучать английский язык
+          </p>
+        </div>
+        <div class="user-type-option" data-type="tutor">
+          <strong>Репетитор</strong>
+          <p style="font-size: 14px; margin-top: 5px; color: var(--gray-medium);">
+            Хочу преподавать английский
+          </p>
+        </div>
+      </div>
+      <!-- поля ввода -->
+      <input type="hidden" id="user_type" name="user_type" value="student">
+      <input type="hidden" id="city_id" name="city_id" value="">
+
+      <div class="form-group">
+        <label for="email" class="required">Email</label>
+        <input type="email" id="email" name="email" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="username" class="required">Имя пользователя</label>
+        <input type="text" id="username" name="username" class="form-control" required>
+        <small style="color: var(--gray-medium); font-size: 13px;">Будет использоваться для входа</small>
+      </div>
+
+      <div class="form-group">
+        <label for="full_name" class="required">ФИО</label>
+        <input type="text" id="full_name" name="full_name" class="form-control" required>
+        <small style="color: var(--gray-medium); font-size: 13px;">Например: Иванов Иван Иванович</small>
+      </div>
+
+      <div class="form-group password-toggle">
+        <label for="password" class="required">Пароль (мин. 6 символов)</label>
+        <input type="password" id="password" name="password" class="form-control" required minlength="6">
+        <button type="button" id="togglePassword" aria-label="Показать пароль">0_0</button>
+      </div>
+
+      <div class="form-group password-toggle">
+        <label for="password_confirm" class="required">Подтвердите пароль</label>
+        <input type="password" id="password_confirm" name="password_confirm" class="form-control" required>
+        <button type="button" id="togglePasswordConfirm" aria-label="Показать пароль">0_0</button>
+      </div>
+
+      <div class="form-group city-search-container">
+        <label for="city_search">Город</label>
+        <input type="text" id="city_search" name="city_search" class="form-control"
+          placeholder="Начните вводить название города..." autocomplete="off">
+        <div class="city-search-results" id="citySearchResults"></div>
+        <small style="color: var(--gray-medium); font-size: 13px;">Укажите для поиска репетиторов в вашем городе</small>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Зарегистрироваться</button>
+      <div class="loading" id="loading">Регистрация...</div>
+    </form>
+
+    <div class="auth-links">
+      <p>Уже есть аккаунт? <a href="login.html">Войдите</a></p>
+      <a href="main_index.php">На главную</a>
+    </div>
+  </div>
+
+  <script>
+    let citySearchTimeout;
+
+    // обрабатываем выбор юзера
+    document.querySelectorAll('.user-type-option').forEach(option => {
+      option.addEventListener('click', function () {
+        document.querySelectorAll('.user-type-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        this.classList.add('selected');
+        document.getElementById('user_type').value = this.dataset.type;
+      });
+    });
+
+    document.querySelector('.user-type-option[data-type="student"]').classList.add('selected');
+
+    // функция для скрытия показа пароля
+    document.getElementById('togglePassword').addEventListener('click', function (e) {
+      e.preventDefault();
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.textContent = type === 'password' ? '0_0' : '-_-';
+    });
+
+    // функция для считывания пароля 
+    document.getElementById('togglePasswordConfirm').addEventListener('click', function (e) {
+      e.preventDefault();
+      const passwordInput = document.getElementById('password_confirm');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.textContent = type === 'password' ? '0_0' : '-_-';
+    });
+
+    // поиск города
+    document.getElementById('city_search').addEventListener('input', function (e) {
+      if (citySearchTimeout) {
+        clearTimeout(citySearchTimeout);
+      }
+
+      const query = this.value.trim();
+
+      if (query.length < 2) {
+        document.getElementById('citySearchResults').style.display = 'none';
+        document.getElementById('city_id').value = '';
+        document.getElementById('warningMessage').style.display = 'none';
+        return;
+      }
+
+      citySearchTimeout = setTimeout(async () => {
+        try {
+          const warningDiv = document.getElementById('warningMessage');
+          warningDiv.style.display = 'none';
+
+          console.log('Searching cities for:', query);
+
+          const response = await fetch('api/get_cities.php?q=' + encodeURIComponent(query));
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          console.log('Response:', data);
+
+          const resultsContainer = document.getElementById('citySearchResults');
+          resultsContainer.innerHTML = '';
+
+          if (data.error) {
+            warningDiv.textContent = 'Ошибка при поиске городов: ' + data.error;
+            warningDiv.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            return;
+          }
+
+          if (data.cities && data.cities.length > 0) {
+            data.cities.forEach(city => {
+              const result = document.createElement('div');
+              result.className = 'city-search-result';
+              result.innerHTML = `
+                                <div class="city-name">${city.city_name}</div>
+                                <div class="city-region">${city.region}, ${city.country}</div>
+                            `;
+              result.addEventListener('click', () => {
+                document.getElementById('city_search').value = city.city_name;
+                document.getElementById('city_id').value = city.city_id;
+                resultsContainer.style.display = 'none';
+                warningDiv.style.display = 'none';
+              });
+              resultsContainer.appendChild(result);
+            });
+            resultsContainer.style.display = 'block';
+          } else {
+            resultsContainer.style.display = 'none';
+            warningDiv.textContent = 'Городы не найдены. Попробуйте ввести название полностью.';
+            warningDiv.style.display = 'block';
+          }
+        } catch (error) {
+          console.error('Ошибка при поиске городов:', error);
+          const warningDiv = document.getElementById('warningMessage');
+          warningDiv.textContent = 'Ошибка сети: ' + error.message;
+          warningDiv.style.display = 'block';
+          document.getElementById('citySearchResults').style.display = 'none';
+        }
+      }, 300);
+    });
+
+    // поиск города
+    document.addEventListener('click', function (e) {
+      const searchContainer = document.querySelector('.city-search-container');
+      const resultsContainer = document.getElementById('citySearchResults');
+
+      if (!searchContainer.contains(e.target)) {
+        resultsContainer.style.display = 'none';
+      }
+    });
+
+    // считываем
+    document.getElementById('registerForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      document.getElementById('errorMessage').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'none';
+      document.getElementById('warningMessage').style.display = 'none';
+
+      const password = document.getElementById('password').value;
+      const passwordConfirm = document.getElementById('password_confirm').value;
+      const email = document.getElementById('email').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const full_name = document.getElementById('full_name').value.trim();
+      const city_id = document.getElementById('city_id').value;
+      const user_type = document.getElementById('user_type').value;
+
+      // валидация
+      if (!email || !password || !username || !full_name) {
+        showError('Пожалуйста, заполните все обязательные поля');
+        return;
+      }
+
+      if (password !== passwordConfirm) {
+        showError('Пароли не совпадают');
+        return;
+      }
+
+      if (password.length < 6) {
+        showError('Пароль должен быть не менее 6 символов');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showError('Пожалуйста, введите корректный email');
+        return;
+      }
+
+      const formData = {
+        email: email,
+        password: password,
+        username: username,
+        full_name: full_name,
+        city_id: city_id || null,
+        user_type: user_type
+      };
+
+      const submitBtn = document.getElementById('submitBtn');
+      const loading = document.getElementById('loading');
+
+      submitBtn.disabled = true;
+      loading.style.display = 'block';
+      submitBtn.textContent = 'Регистрация...';
+
+      // регаем через апи
+      try {
+        const response = await fetch('api/register.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          localStorage.setItem('english_token', result.data.token);
+          localStorage.setItem('english_user', JSON.stringify(result.data.user));
+
+          document.cookie = `english_token=${result.data.token}; path=/; max-age=${60 * 60 * 24 * 30}; SameSite=Strict`;
+
+          showSuccess('Регистрация успешна! Перенаправление...');
+
+          setTimeout(() => {
+            window.location.href = 'main_index.php?token=' + encodeURIComponent(result.data.token) + '&just_registered=true';
+          }, 1500);
+
+        } else {
+          showError(result.message || 'Ошибка при регистрации');
+          submitBtn.disabled = false;
+          loading.style.display = 'none';
+          submitBtn.textContent = 'Зарегистрироваться';
+        }
+      } catch (error) {
+        showError('Ошибка сети: ' + error.message);
+        submitBtn.disabled = false;
+        loading.style.display = 'none';
+        submitBtn.textContent = 'Зарегистрироваться';
+      }
+    });
+
+    // показ ошибки
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+
+      errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // показ успеха
+    function showSuccess(message) {
+      const successDiv = document.getElementById('successMessage');
+      successDiv.textContent = message;
+      successDiv.style.display = 'block';
+
+      successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script>
+</body>
+
+</html>

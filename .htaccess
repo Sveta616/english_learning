@@ -1,0 +1,18 @@
+<FilesMatch "\.(css)$">
+    Header set Content-Type "text/css"
+</FilesMatch>
+DirectoryIndex main_index.php
+
+# обработку PHP
+AddType application/x-httpd-php .php
+
+# кодировка
+AddDefaultCharset UTF-8
+
+# Перенаправление всех запросов на main_index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ main_index.php [QSA,L]
+
+# Защита от просмотра директорий
+Options -Indexes

@@ -1,0 +1,36 @@
+.result-correct {
+  background: var(--success-light);
+  border: 2px solid var(--success-border);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.result-incorrect {
+  background: var(--error-light);
+  border: 2px solid var(--error-border);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.task-result {
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.task-result.correct {
+  background: var(--success-light);
+  border: 2px solid var(--success-border);
+}
+
+.task-result.incorrect {
+  background: var(--error-light);
+  border: 2px solid var(--error-border);
+}
+
+.option-item:hover {
+  background: rgba(217, 4, 41, 0.05);
+  border-color: var(--red-dark);
+}

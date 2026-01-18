@@ -1,0 +1,118 @@
+.status-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.status-filter {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.status-filter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.status-filter.active {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--red-dark);
+}
+
+.lessons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lesson-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.lesson-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.lesson-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.lesson-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tutor-rating {
+  text-align: center;
+  min-width: 100px;
+}
+
+.star-rating {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.star-label {
+  cursor: pointer;
+  font-size: 24px;
+  color: #e4e5e9;
+  transition: color 0.2s;
+}
+
+.star-label:hover,
+.star-label:hover~.star-label,
+.star-label input:checked~.star {
+  color: var(--yellow-warning);
+}
+
+.star-label input {
+  display: none;
+}
+
+.star-label .star {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.star-label input:checked+.star {
+  color: var(--yellow-warning);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .lesson-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .tutor-rating {
+    align-self: flex-start;
+  }
+}

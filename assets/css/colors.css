@@ -1,0 +1,24 @@
+:root {
+  /* основные цвета */
+  --red-dark: #d90429;
+  --red-light: #ef233c;
+  --gray-light: #edf2f4;
+  --gray-medium: #8d99ae;
+  --blue-dark: #2b2d42;
+
+  /* дополнительные цвета */
+  --green-success: #2ed573;
+  --blue-accent: #4cc9f0;
+  --blue-primary: #4361ee;
+  --yellow-warning: #ffc107;
+
+  /* цвета для состояний */
+  --success-light: rgba(46, 213, 115, 0.1);
+  --success-border: rgba(46, 213, 115, 0.3);
+  --warning-light: rgba(255, 193, 7, 0.1);
+  --warning-border: rgba(255, 193, 7, 0.3);
+  --error-light: rgba(217, 4, 41, 0.1);
+  --error-border: rgba(217, 4, 41, 0.3);
+  --blue-light-accent: rgba(67, 97, 238, 0.1);
+  --red-light-accent: rgba(217, 4, 41, 0.1);
+}

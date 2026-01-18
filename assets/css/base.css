@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: var(--gray-light);
+  color: var(--blue-dark);
+  line-height: 1.6;
+}
+
+/* контейнеры */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}
+
+/* заголовки */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 15px;
+  color: var(--blue-dark);
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* параграфы */
+p {
+  margin-bottom: 15px;
+  color: var(--gray-medium);
+}
+
+/* списки */
+ul,
+ol {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+li {
+  margin-bottom: 5px;
+  color: var(--gray-medium);
+}
+
+/* ссылки */
+a {
+  color: var(--red-dark);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* изображения */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* скрытые элементы */
+.hidden {
+  display: none !important;
+}
+
+/* списки */
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list-item {
+  padding: 15px;
+  border-bottom: 1px solid var(--gray-light);
+  transition: background 0.3s;
+}
+
+.list-item:hover {
+  background: var(--gray-light);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* анимации */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-10px);
+  }
+
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.completed-animation {
+  animation: bounce 0.6s ease 2;
+}
