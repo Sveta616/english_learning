@@ -59,11 +59,12 @@ git clone https://github.com/Sveta616/english_learning.git
 ```
 CREATE DATABASE english_learning CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
-
+Импортируйте данные из прикрепленного sql скрипта
 
 ### 4. Конфигурация проекта
 Настройка подключения к БД
 Отредактируйте файл config.php под свои данные, если нужно замените подключения и константы конфига, если у вас реализуется своё подключение к базе данных и перенесенным из дамп-файла данным.
+
 
 
 
